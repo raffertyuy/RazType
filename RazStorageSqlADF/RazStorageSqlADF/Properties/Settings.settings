@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Raz.ADF.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ArchiveDataSetName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ArchiveDataSet</Value>
+    </Setting>
+    <Setting Name="CustomersDataSetName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">CustomersDataSet</Value>
+    </Setting>
+    <Setting Name="InputFilesDataSetName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">InputFilesDataSet</Value>
+    </Setting>
+    <Setting Name="FileNamePrefix" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">file</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

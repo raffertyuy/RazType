@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="RAZ.ADF.RazStorageSqlADF.Console.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="CustomerSqlConnectionString" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Data Source=tcp:razsql.database.windows.net,1433;Initial Catalog=razsql-StorageJsonDFA;User ID=razadmin;Password=Pass123!;Encrypt=True;TrustServerCertificate=False;Application Name="Azure Data Factory Linked Service"</Value>
+    </Setting>
+    <Setting Name="AdfStorageConnectionString" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">DefaultEndpointsProtocol=https;AccountName=razstorageadfpoc;AccountKey=9jgk0bt32bHjCy5xdntIXBIqaBv7bLkZkbh2L/k76nb0Uaebg75/b7EBR8KnB2Q3PHM64hGs2yY8dnD+EaZx3A==</Value>
+    </Setting>
+    <Setting Name="Container_Archive" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">archive</Value>
+    </Setting>
+    <Setting Name="Container_InputFiles" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">inputfiles</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
