@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:text="Enrollment Phrases"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1" />
+    <TextView
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:focusable="false"
+        android:editable="false"
+        android:id="@+id/txtVerificationPhrases" />
+    <TextView
+        android:text="Verification Phrase"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtVerificationPhrase" />
+    <TextView
+        android:text="Remaining Enrollments"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtRemainingEnrollments" />
+    <Button
+        android:id="@+id/btnStartRecording"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Start Recording" />
+    <Button
+        android:id="@+id/btnStopRecording"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Stop Recording" />
+    <Button
+        android:text="Reset Profile"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnResetProfile" />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/listView1" />
+    <Button
+        android:text="Back to Main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnEnrollmentToMain" />
+</LinearLayout>
