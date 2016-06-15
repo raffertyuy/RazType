@@ -20,8 +20,7 @@ namespace RazBankingDroid
     [Activity(Label = "Set-up Voice Verification")]
     public class EnrollmentActivity : EngagementActivity
     {
-        //private AudioRecorder _audioRecorder;
-        private SoundRecorderAsync _recorder;
+        private SoundRecorder _recorder;
         private SpeakerRecognitionApiWrapper _api;
         private string _profileId;
 
@@ -42,7 +41,7 @@ namespace RazBankingDroid
             SetControlHandlers();
             EnableButtons(false);
 
-            _recorder = new SoundRecorderAsync();
+            _recorder = new SoundRecorder();
 
             _api = new SpeakerRecognitionApiWrapper(Constants.SPEAKER_RECOGNITION_ACCOUNT_KEY);
             ShowAvailableEnrollmentPhrases();
@@ -67,16 +66,32 @@ namespace RazBankingDroid
 
         private void btnStartRecording_Click(object sender, EventArgs e)
         {
-            EnableButtons(true);
-            _recorder.StartRecording();
+            try
+            {
+                EnableButtons(true);
+                _recorder.StartRecording();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Message: {0}", ex.Message);
+                System.Diagnostics.Debug.WriteLine("Stack Trace: {0}", ex.StackTrace);
+            }
         }
 
         private void btnStopRecording_Click(object sender, EventArgs e)
         {
-            _recorder.StopRecording();
+            try
+            {
+                _recorder.StopRecording();
 
-            EnrollRecording();
-            EnableButtons(false);
+                EnrollRecording();
+                EnableButtons(false);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Message: {0}", ex.Message);
+                System.Diagnostics.Debug.WriteLine("Stack Trace: {0}", ex.StackTrace);
+            }
         }
 
         private void btnResetProfile_Click(object sender, EventArgs e)
@@ -95,7 +110,7 @@ namespace RazBankingDroid
         {
             btnStartRecording.Enabled = !isRecording;
             btnStopRecording.Enabled = isRecording;
-            btnStopRecording.Enabled = !isRecording;
+            btnResetProfile.Enabled = !isRecording;
         }
 
         private void GetOrCreateProfileId()
@@ -121,7 +136,7 @@ namespace RazBankingDroid
         private void EnrollRecording()
         {
             byte[] audioBytes = null;
-            using (FileStream fsSource = new FileStream(Constants.WAV_FILE_PATH, FileMode.Open, FileAccess.Read))
+            using (FileStream fsSource = new FileStream(_recorder.WavFileName, FileMode.Open, FileAccess.Read))
             {
                 // Read the source file into a byte array.
                 audioBytes = new byte[fsSource.Length];

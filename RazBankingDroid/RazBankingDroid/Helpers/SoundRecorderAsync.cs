@@ -40,6 +40,8 @@ namespace RazBankingDroid.Helpers
 
         public bool IsRecording { get; set; }
 
+        public string WavFileName {  get { return WAV_FILENAME; } }
+
         public SoundRecorderAsync()
         {
             _bufferSize = AudioRecord.GetMinBufferSize(RECORDER_SAMPLERATE, RECORDER_CHANNELS, RECORDER_AUDIO_ENCODING);
@@ -54,7 +56,10 @@ namespace RazBankingDroid.Helpers
 
             IsRecording = true;
 
+            _recordingTaskTokenSource = new CancellationTokenSource();
             _recordingTask = Task.Factory.StartNew(() => { _recorder.StartRecording(); }, _recordingTaskTokenSource.Token);
+
+            _writeAudioToFileTokenSource = new CancellationTokenSource();
             _writeAudioToFileTask = Task.Factory.StartNew(() => WriteAudioDataToFile(), _writeAudioToFileTokenSource.Token);
         }
 
@@ -92,6 +97,22 @@ namespace RazBankingDroid.Helpers
             if (_recorder.State != State.Initialized)
                 return;
 
+            if (!_writeAudioToFileTokenSource.IsCancellationRequested)
+                _writeAudioToFileTokenSource.Cancel();
+            try
+            {
+                _writeAudioToFileTask.Wait();
+            }
+            catch (AggregateException e)
+            {
+                foreach (var v in e.InnerExceptions)
+                    System.Diagnostics.Debug.WriteLine(e.Message + " " + v.Message);
+            }
+            finally
+            {
+                _writeAudioToFileTokenSource.Dispose();
+            }
+
             _recorder.Stop();
             _recorder.Release();
             _recorder.Dispose();
@@ -110,22 +131,6 @@ namespace RazBankingDroid.Helpers
             finally
             {
                 _recordingTaskTokenSource.Dispose();
-            }
-
-            if (!_writeAudioToFileTokenSource.IsCancellationRequested)
-                _writeAudioToFileTokenSource.Cancel();
-            try
-            {
-                _writeAudioToFileTask.Wait();
-            }
-            catch (AggregateException e)
-            {
-                foreach (var v in e.InnerExceptions)
-                    System.Diagnostics.Debug.WriteLine(e.Message + " " + v.Message);
-            }
-            finally
-            {
-                _writeAudioToFileTokenSource.Dispose();
             }
 
             CopyWaveFile(WAV_RAW_FILENAME, WAV_FILENAME);

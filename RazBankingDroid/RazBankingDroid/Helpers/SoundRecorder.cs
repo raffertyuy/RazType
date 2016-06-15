@@ -33,6 +33,8 @@ namespace RazBankingDroid.Helpers
 
         public bool IsRecording { get; set; }
 
+        public string WavFileName { get { return WAV_FILENAME; } }
+
         public SoundRecorder()
         {
             _bufferSize = AudioRecord.GetMinBufferSize(RECORDER_SAMPLERATE, RECORDER_CHANNELS, RECORDER_AUDIO_ENCODING);
