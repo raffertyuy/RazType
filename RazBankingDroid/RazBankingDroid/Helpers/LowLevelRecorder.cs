@@ -15,31 +15,22 @@ using System.Threading.Tasks;
 
 namespace RazBankingDroid.Helpers
 {
-    class LowLevelRecordAudio : INotificationReceiver
+    class LowLevelRecorder : INotificationReceiver
     {
         public Action<bool> RecordingStateChanged;
 
-        private const int RECORDER_BPP = 16;
-        private const string AUDIO_RECORDER_FILE_EXT_WAV = ".wav";
-        private const string AUDIO_RECORDER_FOLDER = "RazBankingDroid";
-        private const string AUDIO_RECORDER_TEMP_FILE = "record_temp.raw";
-        
+        private const int RECORDER_SAMPLERATE = 16000;
         public const ChannelIn RECORDER_CHANNELS = ChannelIn.Mono;
         public const Android.Media.Encoding RECORDER_AUDIO_ENCODING = Android.Media.Encoding.Pcm16bit;
-        public const string WAV_RAW_FILENAME = "/sdcard/RazBankingDroid/voice8K16bitmonoraw.wav";
 
-        private const int RECORDER_SAMPLERATE = 16000;
-
-        static string filePath = "/sdcard/RazBankingDroid/voice8K16bitmono.wav";
+        static string filePath = "/data/data/RazBankingDroid.RazBankingDroid/files/voice8K16bitmono.wav";
         byte[] audioBuffer = null;
         AudioRecord audioRecord = null;
         bool endRecording = false;
-        bool isRecording = false;
 
-        public Boolean IsRecording
-        {
-            get { return (isRecording); }
-        }
+        public Boolean IsRecording { get; set; }
+
+        public string WavFileName { get { return filePath; } }
 
         async Task ReadAudioAsync()
         {
@@ -69,7 +60,7 @@ namespace RazBankingDroid.Helpers
             }
             audioRecord.Stop();
             audioRecord.Release();
-            isRecording = false;
+            IsRecording = false;
 
             RaiseRecordingStateChangedEvent();
         }
@@ -77,13 +68,13 @@ namespace RazBankingDroid.Helpers
         private void RaiseRecordingStateChangedEvent()
         {
             if (RecordingStateChanged != null)
-                RecordingStateChanged(isRecording);
+                RecordingStateChanged(IsRecording);
         }
 
         protected async Task StartRecorderAsync()
         {
             endRecording = false;
-            isRecording = true;
+            IsRecording = true;
 
             RaiseRecordingStateChangedEvent();
 

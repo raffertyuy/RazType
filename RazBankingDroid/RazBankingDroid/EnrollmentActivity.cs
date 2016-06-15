@@ -14,15 +14,18 @@ using Android.Media;
 using System.Threading;
 using RazBankingDroid.Helpers;
 using Microsoft.Azure.Engagement.Xamarin.Activity;
+using System.Threading.Tasks;
 
 namespace RazBankingDroid
 {
     [Activity(Label = "Set-up Voice Verification")]
     public class EnrollmentActivity : EngagementActivity
     {
-        private SoundRecorder _recorder;
+        private LowLevelRecorder _recorder;
         private SpeakerRecognitionApiWrapper _api;
         private string _profileId;
+        private bool _isRecording;
+        private bool _haveRecording;
 
         private TextView txtVerificationPhrases;
         private EditText txtVerificationPhrase;
@@ -39,9 +42,11 @@ namespace RazBankingDroid
             SetContentView(Resource.Layout.Enrollment);
 
             SetControlHandlers();
-            EnableButtons(false);
 
-            _recorder = new SoundRecorder();
+            _recorder = new LowLevelRecorder();
+            _isRecording = false;
+            _haveRecording = false;
+            HandleButtonState();
 
             _api = new SpeakerRecognitionApiWrapper(Constants.SPEAKER_RECOGNITION_ACCOUNT_KEY);
             ShowAvailableEnrollmentPhrases();
@@ -64,12 +69,14 @@ namespace RazBankingDroid
             btnEnrollmentToMain.Click += btnEnrollmentToMain_Click;
         }
 
-        private void btnStartRecording_Click(object sender, EventArgs e)
+        private async void btnStartRecording_Click(object sender, EventArgs e)
         {
             try
             {
-                EnableButtons(true);
-                _recorder.StartRecording();
+                StartOperationAsync(_recorder);
+                _isRecording = true;
+                _haveRecording = true;
+                HandleButtonState();
             }
             catch (Exception ex)
             {
@@ -82,10 +89,16 @@ namespace RazBankingDroid
         {
             try
             {
-                _recorder.StopRecording();
+                StopOperation(_recorder);
+                _isRecording = false;
+                _recorder.RecordingStateChanged += (recording) => {
+                    if (!_isRecording)
+                        HandleButtonState();
+
+                    _recorder.RecordingStateChanged = null;
+                };
 
                 EnrollRecording();
-                EnableButtons(false);
             }
             catch (Exception ex)
             {
@@ -106,11 +119,42 @@ namespace RazBankingDroid
             StartActivity(intent);
         }
 
-        private void EnableButtons(bool isRecording)
+        private void HandleButtonState()
         {
-            btnStartRecording.Enabled = !isRecording;
-            btnStopRecording.Enabled = isRecording;
-            btnResetProfile.Enabled = !isRecording;
+            btnStartRecording.Enabled = !_isRecording;
+            btnStopRecording.Enabled = _isRecording;
+            btnResetProfile.Enabled = !_isRecording;
+        }
+
+        async Task StartOperationAsync(INotificationReceiver nRec)
+        {
+            //if (useNotifications)
+            //{
+            //    bool haveFocus = nMan.RequestAudioResources(nRec);
+            //    if (haveFocus)
+            //    {
+            //        status.Text = "Granted";
+            //        await nRec.StartAsync();
+            //    }
+            //    else
+            //    {
+            //        status.Text = "Denied";
+            //    }
+            //}
+            //else
+            //{
+                await nRec.StartAsync();
+            //}
+        }
+
+        void StopOperation(INotificationReceiver nRec)
+        {
+            nRec.Stop();
+            //if (useNotifications)
+            //{
+            //    nMan.ReleaseAudioResources();
+            //    status.Text = "Released";
+            //}
         }
 
         private void GetOrCreateProfileId()

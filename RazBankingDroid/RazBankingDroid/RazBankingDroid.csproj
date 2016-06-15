@@ -97,7 +97,6 @@
     <Compile Include="Helpers\AudioRecorder.cs" />
     <Compile Include="Helpers\INotificationReceiver.cs" />
     <Compile Include="Helpers\LowLevelRecorder.cs" />
-    <Compile Include="Helpers\NotificationManager.cs" />
     <Compile Include="Helpers\OperationStatus.cs" />
     <Compile Include="Helpers\ProcessingResult.cs" />
     <Compile Include="Helpers\SoundRecorder.cs" />
