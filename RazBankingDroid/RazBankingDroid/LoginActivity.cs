@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Microsoft.Azure.Engagement.Xamarin.Activity;
+using RazBankingDroid.Helpers;
 
 namespace RazBankingDroid
 {
@@ -47,18 +48,20 @@ namespace RazBankingDroid
 
         private void btnLoginStartRecording_Click(object sender, EventArgs e)
         {
-            // authenticate
+            throw new NotImplementedException();
+        }
+
+        private void btnLoginStopRecording_Click(object sender, EventArgs e)
+        {
+            //var profileId = UserSettingsHelper.RetrieveProfileId();
+            //var api = new SpeakerRecognitionApiWrapper(Constants.SPEAKER_RECOGNITION_ACCOUNT_KEY);
+            //api.Verify(profileId...);
 
             if (true)
             {
                 var intent = new Intent(this, typeof(AccountActivity));
                 StartActivity(intent);
             }
-        }
-
-        private void btnLoginStopRecording_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         private void btnLoginToMain_Click(object sender, EventArgs e)

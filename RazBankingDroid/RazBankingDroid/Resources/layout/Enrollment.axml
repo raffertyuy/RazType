@@ -14,9 +14,6 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:enabled="false"
-        android:focusable="false"
-        android:editable="false"
         android:id="@+id/txtVerificationPhrases" />
     <TextView
         android:text="Verification Phrase"
@@ -24,7 +21,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView2" />
-    <EditText
+    <TextView
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtVerificationPhrase" />
@@ -34,7 +33,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView3" />
-    <EditText
+    <TextView
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtRemainingEnrollments" />

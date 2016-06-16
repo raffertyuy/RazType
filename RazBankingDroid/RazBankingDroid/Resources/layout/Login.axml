@@ -50,7 +50,7 @@
         android:enabled="false"
         android:id="@+id/txtLoginVerificationPhrase" />
     <Button
-        android:text="Start Recording"
+        android:text="Start Recording and Login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnLoginStartRecording" />

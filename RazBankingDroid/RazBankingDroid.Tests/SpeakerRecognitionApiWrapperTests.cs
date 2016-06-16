@@ -61,7 +61,7 @@ namespace RazBankingDroid.Tests
             {
                 // Enroll
                 string[] enrollWavs = {
-                    "C:\\Rafferty\\GitProjects\\RazType\\RazBankingDroid\\RazBankingDroid.Tests\\Resources\\RazBankingDroid.wav",
+                    "C:\\Rafferty\\GitProjects\\RazType\\RazBankingDroid\\RazBankingDroid.Tests\\Resources\\enrollment-1.wav",
                     "C:\\Rafferty\\GitProjects\\RazType\\RazBankingDroid\\RazBankingDroid.Tests\\Resources\\enrollment-2.wav",
                     "C:\\Rafferty\\GitProjects\\RazType\\RazBankingDroid\\RazBankingDroid.Tests\\Resources\\enrollment-3.wav"
                 };

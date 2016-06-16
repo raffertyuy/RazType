@@ -28,8 +28,8 @@ namespace RazBankingDroid
         private bool _haveRecording;
 
         private TextView txtVerificationPhrases;
-        private EditText txtVerificationPhrase;
-        private EditText txtRemainingEnrollments;
+        private TextView txtVerificationPhrase;
+        private TextView txtRemainingEnrollments;
         private Button btnStartRecording;
         private Button btnStopRecording;
         private Button btnResetProfile;
@@ -56,8 +56,8 @@ namespace RazBankingDroid
         private void SetControlHandlers()
         {
             txtVerificationPhrases = FindViewById<TextView>(Resource.Id.txtVerificationPhrases);
-            txtVerificationPhrase = FindViewById<EditText>(Resource.Id.txtVerificationPhrase);
-            txtRemainingEnrollments = FindViewById<EditText>(Resource.Id.txtRemainingEnrollments);
+            txtVerificationPhrase = FindViewById<TextView>(Resource.Id.txtVerificationPhrase);
+            txtRemainingEnrollments = FindViewById<TextView>(Resource.Id.txtRemainingEnrollments);
             btnStartRecording = FindViewById<Button>(Resource.Id.btnStartRecording);
             btnStopRecording = FindViewById<Button>(Resource.Id.btnStopRecording);
             btnResetProfile = FindViewById<Button>(Resource.Id.btnResetProfile);
@@ -96,9 +96,9 @@ namespace RazBankingDroid
                         HandleButtonState();
 
                     _recorder.RecordingStateChanged = null;
-                };
 
-                EnrollRecording();
+                    EnrollRecording();
+                };
             }
             catch (Exception ex)
             {
@@ -174,11 +174,19 @@ namespace RazBankingDroid
         private void ShowAvailableEnrollmentPhrases()
         {
             var phrases = _api.GetVerificationPhrases();
-            txtVerificationPhrase.Text = string.Join("\n", phrases.ToArray());
+            txtVerificationPhrases.Text = string.Join("\n", phrases.ToArray());
         }
 
         private void EnrollRecording()
         {
+            //FileStream fileStream = new FileStream(_recorder.WavFileName, FileMode.Open, FileAccess.Read);
+            //BinaryReader binaryReader = new BinaryReader(fileStream);
+            //long totalBytes = new System.IO.FileInfo(_recorder.WavFileName).Length;
+            //byte[] audioBytes = binaryReader.ReadBytes((Int32)totalBytes);
+            //fileStream.Close();
+            //fileStream.Dispose();
+            //binaryReader.Close();
+
             byte[] audioBytes = null;
             using (FileStream fsSource = new FileStream(_recorder.WavFileName, FileMode.Open, FileAccess.Read))
             {
@@ -200,9 +208,21 @@ namespace RazBankingDroid
                 }
             }
 
-            var result = _api.CreateVerificationEnrollment(_profileId, audioBytes);
-            txtRemainingEnrollments.Text = result.remainingEnrollments.ToString();
-            txtVerificationPhrase.Text = result.phrase;
+            VerificationEnrollmentResult result = null;
+            try
+            {
+                result = _api.CreateVerificationEnrollment(_profileId, audioBytes);
+
+                txtRemainingEnrollments.Text = result.remainingEnrollments.ToString();
+                txtVerificationPhrase.Text = result.phrase;
+            }
+            catch (Exception ex)
+            {
+                txtVerificationPhrase.Text = "Unrecognized, please try again.";
+
+                System.Diagnostics.Debug.WriteLine("Message: {0}", ex.Message);
+                System.Diagnostics.Debug.WriteLine("Stack Trace: {0}", ex.StackTrace);
+            }
         }
     }
 }
