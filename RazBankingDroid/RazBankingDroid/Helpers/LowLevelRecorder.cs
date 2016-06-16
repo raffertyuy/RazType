@@ -23,7 +23,7 @@ namespace RazBankingDroid.Helpers
         public const ChannelIn RECORDER_CHANNELS = ChannelIn.Mono;
         public const Android.Media.Encoding RECORDER_AUDIO_ENCODING = Android.Media.Encoding.Pcm16bit;
 
-        static string filePath = "/data/data/RazBankingDroid.RazBankingDroid/files/voice8K16bitmono.wav";
+        static string filePath;
         byte[] audioBuffer = null;
         AudioRecord audioRecord = null;
         bool endRecording = false;
@@ -32,9 +32,14 @@ namespace RazBankingDroid.Helpers
 
         public string WavFileName { get { return filePath; } }
 
+        public LowLevelRecorder()
+        {
+            filePath = Path.Combine(Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads).Path, "RazBankingDroid.wav");
+        }
+
         async Task ReadAudioAsync()
         {
-            using (var fileStream = new FileStream(filePath, System.IO.FileMode.Create, System.IO.FileAccess.Write))
+            using (var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
             {
                 while (true)
                 {
