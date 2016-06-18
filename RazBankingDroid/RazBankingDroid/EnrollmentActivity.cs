@@ -160,7 +160,20 @@ namespace RazBankingDroid
         private void GetOrCreateProfileId()
         {
             _profileId = UserSettingsHelper.RetrieveProfileId();
-            if (!string.IsNullOrEmpty(_profileId))
+            bool validProfile = false;
+
+            try
+            {
+                var profile = _api.GetVerificationProfile(_profileId);
+                validProfile = _profileId == profile.verificationProfileId;
+            }
+            catch
+            {
+                validProfile = false;
+                _profileId = null;
+            }
+
+            if (validProfile && !string.IsNullOrEmpty(_profileId))
                 return;
 
             _profileId = _api.CreateVerificationProfile();

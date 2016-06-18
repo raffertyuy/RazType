@@ -102,6 +102,7 @@
     <Compile Include="Helpers\SpeakerRecognitionApiWrapper.cs" />
     <Compile Include="Helpers\UserSettingsHelper.cs" />
     <Compile Include="Helpers\VerificationEnrollmentResult.cs" />
+    <Compile Include="Helpers\VerificationProfile.cs" />
     <Compile Include="Helpers\VerificationResult.cs" />
     <Compile Include="LoginActivity.cs" />
     <Compile Include="MainActivity.cs" />
@@ -130,7 +131,9 @@
     <AndroidResource Include="Resources\drawable\Icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\AndroidManifest.xml" />
+    <None Include="Properties\AndroidManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\engagement_web_announcement.xml" />

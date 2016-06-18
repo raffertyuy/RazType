@@ -112,7 +112,7 @@ namespace RazBankingDroid.Helpers
             }
         }
 
-        public List<string> GetVerificationPhrases()
+        public IList<string> GetVerificationPhrases()
         {
             var request = (HttpWebRequest)HttpWebRequest.Create(string.Concat(API_BASE_URL, "/verificationPhrases?locale=en-US"));
             InitializeRequest(request, "GET");
@@ -135,6 +135,42 @@ namespace RazBankingDroid.Helpers
         }
 
         #region Verification Profile
+        public IList<VerificationProfile> GetVerificationProfiles()
+        {
+            var request = (HttpWebRequest)HttpWebRequest.Create(VERIFICATION_PROFILE_BASE_URL);
+            InitializeRequest(request, "GET");
+
+            using (var response = request.GetResponse())
+            {
+                using (var stream = response.GetResponseStream())
+                {
+                    var reader = new StreamReader(stream);
+                    string responseString = reader.ReadToEnd();
+
+                    var verificationProfiles = JsonConvert.DeserializeObject<VerificationProfile[]>(responseString);
+                    return verificationProfiles;
+                }
+            }
+        }
+
+        public VerificationProfile GetVerificationProfile(string profileId)
+        {
+            var request = (HttpWebRequest)HttpWebRequest.Create(string.Concat(VERIFICATION_PROFILE_BASE_URL, "/", profileId));
+            InitializeRequest(request, "GET");
+
+            using (var response = request.GetResponse())
+            {
+                using (var stream = response.GetResponseStream())
+                {
+                    var reader = new StreamReader(stream);
+                    string responseString = reader.ReadToEnd();
+
+                    var verificationProfile = JsonConvert.DeserializeObject<VerificationProfile>(responseString);
+                    return verificationProfile;
+                }
+            }
+        }
+
         public string CreateVerificationProfile()
         {
             var request = (HttpWebRequest)HttpWebRequest.Create(VERIFICATION_PROFILE_BASE_URL);

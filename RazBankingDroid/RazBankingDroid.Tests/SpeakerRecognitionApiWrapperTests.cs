@@ -32,7 +32,7 @@ namespace RazBankingDroid.Tests
             var speaker = new SpeakerRecognitionApiWrapper("cfdb5c6532ca469aa7a7f8d74ab93ca9");
             var phrases = speaker.GetVerificationPhrases();
 
-            phrases.ForEach(x => Debug.WriteLine(x));
+            phrases.ToList().ForEach(x => Debug.WriteLine(x));
         }
 
         [TestMethod]
@@ -107,6 +107,38 @@ namespace RazBankingDroid.Tests
                 Debug.WriteLine("result: " + verificationResult.result);
                 Debug.WriteLine("confidence: " + verificationResult.confidence);
                 Debug.WriteLine("phrase: " + verificationResult.phrase);
+            }
+            finally
+            {
+                speaker.DeleteVerificationProfile(profileId);
+            }
+        }
+
+        [TestMethod]
+        public void GetVerificationProfilesTest()
+        {
+            var speaker = new SpeakerRecognitionApiWrapper("cfdb5c6532ca469aa7a7f8d74ab93ca9");
+            var profiles = speaker.GetVerificationProfiles();
+
+            foreach (var p in profiles)
+            {
+                Debug.WriteLine(p.verificationProfileId);
+
+                // Uncomment to delete all profiles
+                //speaker.DeleteVerificationProfile(p.verificationProfileId);
+            }
+        }
+
+        [TestMethod]
+        public void GetVerificationProfileTest()
+        {
+            var speaker = new SpeakerRecognitionApiWrapper("cfdb5c6532ca469aa7a7f8d74ab93ca9");
+            var profileId = speaker.CreateVerificationProfile();
+
+            try
+            {
+                var profile = speaker.GetVerificationProfile(profileId);
+                Debug.WriteLine(profile.verificationProfileId);
             }
             finally
             {

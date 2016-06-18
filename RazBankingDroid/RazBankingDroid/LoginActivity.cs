@@ -125,7 +125,20 @@ namespace RazBankingDroid
         private void GetProfileId()
         {
             _profileId = UserSettingsHelper.RetrieveProfileId();
-            if (!string.IsNullOrEmpty(_profileId))
+            bool validProfile = false;
+
+            try
+            {
+                var profile = _api.GetVerificationProfile(_profileId);
+                validProfile = _profileId == profile.verificationProfileId;
+            }
+            catch
+            {
+                validProfile = false;
+                _profileId = null;
+            }
+
+            if (validProfile && !string.IsNullOrEmpty(_profileId))
                 return;
 
             txtStatus.Text = "Profile Id not found. Please Set-up your Voice Verification.";
