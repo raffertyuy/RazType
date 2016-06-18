@@ -32,11 +32,6 @@
         android:layout_height="wrap_content"
         android:enabled="false"
         android:id="@+id/txtConfidenceLevel" />
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/listView1" />
     <TextView
         android:text="Your Verification Phrase"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -50,7 +45,7 @@
         android:enabled="false"
         android:id="@+id/txtLoginVerificationPhrase" />
     <Button
-        android:text="Start Recording and Login"
+        android:text="Start Recording"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnLoginStartRecording" />
@@ -59,6 +54,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnLoginStopRecording" />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/listView1" />
+    <Button
+        android:text="Login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnLogin" />
     <Button
         android:text="Back to Main"
         android:layout_width="match_parent"

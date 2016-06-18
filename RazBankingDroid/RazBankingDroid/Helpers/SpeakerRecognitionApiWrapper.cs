@@ -32,12 +32,44 @@ namespace RazBankingDroid.Helpers
             _accountKey = accountKey;
         }
 
+        public static byte[] AudioFileToBytes(string audioFilePath)
+        {
+            byte[] audioBytes = null;
+            using (FileStream fsSource = new FileStream(audioFilePath, FileMode.Open, FileAccess.Read))
+            {
+                // Read the source file into a byte array.
+                audioBytes = new byte[fsSource.Length];
+                int numBytesToRead = (int)fsSource.Length;
+                int numBytesRead = 0;
+                while (numBytesToRead > 0)
+                {
+                    // Read may return anything from 0 to numBytesToRead.
+                    int n = fsSource.Read(audioBytes, numBytesRead, numBytesToRead);
+
+                    // Break when the end of the file is reached.
+                    if (n == 0)
+                        break;
+
+                    numBytesRead += n;
+                    numBytesToRead -= n;
+                }
+
+                fsSource.Close();
+            }
+
+            return audioBytes;
+        }
+
         private void InitializeRequest(HttpWebRequest request, string method)
         {
             request.ContentType = "application/json";
             request.ContentLength = 0;
             request.Method = method;
             request.Headers.Add("Ocp-Apim-Subscription-Key", _accountKey);
+
+            request.KeepAlive = false;
+            //request.ProtocolVersion = HttpVersion.Version10;
+            request.ServicePoint.ConnectionLimit = 1;
         }
 
         public OperationStatus GetOperationStatus(string operationId)

@@ -88,8 +88,8 @@ namespace RazBankingDroid
 			// aapt resource value: 0x7f05001c
 			public const int btnEnrollmentToMain = 2131034140;
 			
-			// aapt resource value: 0x7f050024
-			public const int btnLogin = 2131034148;
+			// aapt resource value: 0x7f050023
+			public const int btnLogin = 2131034147;
 			
 			// aapt resource value: 0x7f050021
 			public const int btnLoginStartRecording = 2131034145;
@@ -97,11 +97,11 @@ namespace RazBankingDroid
 			// aapt resource value: 0x7f050022
 			public const int btnLoginStopRecording = 2131034146;
 			
-			// aapt resource value: 0x7f050023
-			public const int btnLoginToMain = 2131034147;
+			// aapt resource value: 0x7f050024
+			public const int btnLoginToMain = 2131034148;
 			
-			// aapt resource value: 0x7f05001a
-			public const int btnResetProfile = 2131034138;
+			// aapt resource value: 0x7f05001b
+			public const int btnResetProfile = 2131034139;
 			
 			// aapt resource value: 0x7f050018
 			public const int btnStartRecording = 2131034136;
@@ -148,8 +148,8 @@ namespace RazBankingDroid
 			// aapt resource value: 0x7f050000
 			public const int imageView1 = 2131034112;
 			
-			// aapt resource value: 0x7f05001b
-			public const int listView1 = 2131034139;
+			// aapt resource value: 0x7f05001a
+			public const int listView1 = 2131034138;
 			
 			// aapt resource value: 0x7f050010
 			public const int question_title = 2131034128;

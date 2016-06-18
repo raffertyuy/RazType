@@ -49,16 +49,16 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Stop Recording" />
-    <Button
-        android:text="Reset Profile"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnResetProfile" />
     <ListView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:id="@+id/listView1" />
+    <Button
+        android:text="Reset Profile"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnResetProfile" />
     <Button
         android:text="Back to Main"
         android:layout_width="match_parent"

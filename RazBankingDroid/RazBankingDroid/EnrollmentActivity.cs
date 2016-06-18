@@ -80,8 +80,8 @@ namespace RazBankingDroid
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Message: {0}", ex.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace: {0}", ex.StackTrace);
+                System.Diagnostics.Debug.WriteLine("Message: " + ex.Message);
+                System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
             }
         }
 
@@ -102,8 +102,8 @@ namespace RazBankingDroid
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Message: {0}", ex.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace: {0}", ex.StackTrace);
+                System.Diagnostics.Debug.WriteLine("Message: " + ex.Message);
+                System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
             }
         }
 
@@ -167,7 +167,7 @@ namespace RazBankingDroid
             if (string.IsNullOrEmpty(_profileId))
                 throw new ApplicationException("Error creating Verification Profile ID.");
 
-            System.Diagnostics.Debug.WriteLine("Verification Profile ID: {0}", _profileId);
+            System.Diagnostics.Debug.WriteLine("Verification Profile ID: " + _profileId);
             UserSettingsHelper.SaveProfileId(_profileId);
         }
 
@@ -179,35 +179,7 @@ namespace RazBankingDroid
 
         private void EnrollRecording()
         {
-            //FileStream fileStream = new FileStream(_recorder.WavFileName, FileMode.Open, FileAccess.Read);
-            //BinaryReader binaryReader = new BinaryReader(fileStream);
-            //long totalBytes = new System.IO.FileInfo(_recorder.WavFileName).Length;
-            //byte[] audioBytes = binaryReader.ReadBytes((Int32)totalBytes);
-            //fileStream.Close();
-            //fileStream.Dispose();
-            //binaryReader.Close();
-
-            byte[] audioBytes = null;
-            using (FileStream fsSource = new FileStream(_recorder.WavFileName, FileMode.Open, FileAccess.Read))
-            {
-                // Read the source file into a byte array.
-                audioBytes = new byte[fsSource.Length];
-                int numBytesToRead = (int)fsSource.Length;
-                int numBytesRead = 0;
-                while (numBytesToRead > 0)
-                {
-                    // Read may return anything from 0 to numBytesToRead.
-                    int n = fsSource.Read(audioBytes, numBytesRead, numBytesToRead);
-
-                    // Break when the end of the file is reached.
-                    if (n == 0)
-                        break;
-
-                    numBytesRead += n;
-                    numBytesToRead -= n;
-                }
-            }
-
+            var audioBytes = SpeakerRecognitionApiWrapper.AudioFileToBytes(_recorder.WavFileName);
             VerificationEnrollmentResult result = null;
             try
             {
@@ -220,8 +192,8 @@ namespace RazBankingDroid
             {
                 txtVerificationPhrase.Text = "Unrecognized, please try again.";
 
-                System.Diagnostics.Debug.WriteLine("Message: {0}", ex.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace: {0}", ex.StackTrace);
+                System.Diagnostics.Debug.WriteLine("Message: " + ex.Message);
+                System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
             }
         }
     }

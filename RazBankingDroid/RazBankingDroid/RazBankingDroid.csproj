@@ -94,6 +94,7 @@
     <Compile Include="AccountActivity.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="EnrollmentActivity.cs" />
+    <Compile Include="Helpers\ConvertToWavHelper.cs" />
     <Compile Include="Helpers\INotificationReceiver.cs" />
     <Compile Include="Helpers\LowLevelRecorder.cs" />
     <Compile Include="Helpers\OperationStatus.cs" />

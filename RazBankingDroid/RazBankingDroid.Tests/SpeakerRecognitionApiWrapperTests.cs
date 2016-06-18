@@ -68,33 +68,15 @@ namespace RazBankingDroid.Tests
 
                 foreach (var filepath in enrollWavs)
                 {
-                    byte[] audioBytes = null;
-                    using (FileStream fsSource = new FileStream(filepath, FileMode.Open, FileAccess.Read))
-                    {
-                        // Read the source file into a byte array.
-                        audioBytes = new byte[fsSource.Length];
-                        int numBytesToRead = (int)fsSource.Length;
-                        int numBytesRead = 0;
-                        while (numBytesToRead > 0)
-                        {
-                            // Read may return anything from 0 to numBytesToRead.
-                            int n = fsSource.Read(audioBytes, numBytesRead, numBytesToRead);
+                    Debug.WriteLine("Enrolling audio file " + filepath);
 
-                            // Break when the end of the file is reached.
-                            if (n == 0)
-                                break;
-
-                            numBytesRead += n;
-                            numBytesToRead -= n;
-                        }
-                    }
-
+                    var audioBytes = SpeakerRecognitionApiWrapper.AudioFileToBytes(filepath);
                     var result = speaker.CreateVerificationEnrollment(profileId, audioBytes);
 
-                    Debug.WriteLine("enrollmentStatus: {0}", result.enrollmentStatus);
-                    Debug.WriteLine("enrollmentsCount: {0}", result.enrollmentsCount);
-                    Debug.WriteLine("remainingEnrollments: {0}", result.remainingEnrollments);
-                    Debug.WriteLine("phrase: {0}", result.phrase);
+                    Debug.WriteLine("enrollmentStatus: " + result.enrollmentStatus);
+                    Debug.WriteLine("enrollmentsCount: " + result.enrollmentsCount);
+                    Debug.WriteLine("remainingEnrollments: " + result.remainingEnrollments);
+                    Debug.WriteLine("phrase: " + result.phrase);
                 }
 
                 // Verify
@@ -122,9 +104,9 @@ namespace RazBankingDroid.Tests
 
                 var verificationResult = speaker.Verify(profileId, verifyBytes);
 
-                Debug.WriteLine("result: {0}", verificationResult.result);
-                Debug.WriteLine("confidence: {0}", verificationResult.confidence);
-                Debug.WriteLine("phrase: {0}", verificationResult.phrase);
+                Debug.WriteLine("result: " + verificationResult.result);
+                Debug.WriteLine("confidence: " + verificationResult.confidence);
+                Debug.WriteLine("phrase: " + verificationResult.phrase);
             }
             finally
             {
