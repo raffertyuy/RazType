@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.raz.droid.banking" android:versionCode="1" android:versionName="1.0">
   <uses-sdk />
   <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-  <permission android:name="com.raz.droid.banking.permission.C2D_MESSAGE" android:protectionLevel="signature" />
   <uses-permission android:name="com.raz.droid.banking.permission.C2D_MESSAGE" />
-  
+  <permission android:name="com.raz.droid.banking.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+
   <application android:label="RazBankingDroid">
     <service android:name="com.microsoft.azure.engagement.service.EngagementService" android:exported="false" android:label="RazBankingDroid Service" android:process=":Engagement" />
     <activity android:name="com.microsoft.azure.engagement.reach.activity.EngagementTextAnnouncementActivity" android:theme="@android:style/Theme.Light">
@@ -49,7 +49,7 @@
       </intent-filter>
     </receiver>
     <meta-data android:name="engagement:reach:notification:icon" android:value="engagement_close" />
-    <meta-data android:name="engagement:gcm:sender" android:value="razspeakerauthentication\n" />
+    <meta-data android:name="engagement:gcm:sender" android:value="1024870389472\n" />
     <receiver android:name="com.microsoft.azure.engagement.gcm.EngagementGCMEnabler" android:exported="false">
       <intent-filter>
         <action android:name="com.microsoft.azure.engagement.intent.action.APPID_GOT" />
