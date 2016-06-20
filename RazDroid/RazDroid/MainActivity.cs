@@ -30,6 +30,8 @@ namespace RazDroid
 
             // Get our button from the layout resource,
             // and attach an event to it
+            var txtDeviceId = FindViewById<TextView>(Resource.Id.txtDeviceId);
+
             var btnClickMe = FindViewById<Button>(Resource.Id.btnClickMe);
             btnClickMe.Click += btnClickMe_Click;
 
@@ -41,6 +43,8 @@ namespace RazDroid
 
             var btnAbout = FindViewById<Button>(Resource.Id.btnAbout);
             btnAbout.Click += btnAbout_Click;
+
+            EngagementAgent.GetDeviceId(deviceId => { txtDeviceId.Text = deviceId; });
         }
 
         private void btnClickMe_Click(object sender, EventArgs e)

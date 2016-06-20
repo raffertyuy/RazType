@@ -73,14 +73,14 @@ namespace RazDroid
 			// aapt resource value: 0x7f050015
 			public const int body = 2131034133;
 			
-			// aapt resource value: 0x7f05001a
-			public const int btnAbout = 2131034138;
+			// aapt resource value: 0x7f05001b
+			public const int btnAbout = 2131034139;
 			
 			// aapt resource value: 0x7f050004
 			public const int btnAboutToMain = 2131034116;
 			
-			// aapt resource value: 0x7f050018
-			public const int btnClickMe = 2131034136;
+			// aapt resource value: 0x7f050019
+			public const int btnClickMe = 2131034137;
 			
 			// aapt resource value: 0x7f050005
 			public const int btnCrash = 2131034117;
@@ -88,20 +88,20 @@ namespace RazDroid
 			// aapt resource value: 0x7f050006
 			public const int btnCrashToMain = 2131034118;
 			
-			// aapt resource value: 0x7f050019
-			public const int btnMainToSecond = 2131034137;
-			
-			// aapt resource value: 0x7f05001c
-			public const int btnSecondToMain = 2131034140;
-			
-			// aapt resource value: 0x7f05001b
-			public const int btnSecondToThird = 2131034139;
-			
-			// aapt resource value: 0x7f05001e
-			public const int btnThirdToMain = 2131034142;
+			// aapt resource value: 0x7f05001a
+			public const int btnMainToSecond = 2131034138;
 			
 			// aapt resource value: 0x7f05001d
-			public const int btnThirdToSecond = 2131034141;
+			public const int btnSecondToMain = 2131034141;
+			
+			// aapt resource value: 0x7f05001c
+			public const int btnSecondToThird = 2131034140;
+			
+			// aapt resource value: 0x7f05001f
+			public const int btnThirdToMain = 2131034143;
+			
+			// aapt resource value: 0x7f05001e
+			public const int btnThirdToSecond = 2131034142;
 			
 			// aapt resource value: 0x7f050017
 			public const int choices = 2131034135;
@@ -159,6 +159,9 @@ namespace RazDroid
 			
 			// aapt resource value: 0x7f05000a
 			public const int title = 2131034122;
+			
+			// aapt resource value: 0x7f050018
+			public const int txtDeviceId = 2131034136;
 			
 			static Id()
 			{

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="RazBankingDroid.RazBankingDroid" android:versionCode="1" android:versionName="1.0">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.raz.droid.banking" android:versionCode="1" android:versionName="1.0">
   <uses-sdk />
   <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-  <!--<permission android:name="RazBankingDroid.RazBankingDroid.permission.C2D_MESSAGE" android:protectionLevel="signature" />-->
-  <uses-permission android:name="RazBankingDroid.RazBankingDroid.permission.C2D_MESSAGE" />
+  <permission android:name="com.raz.droid.banking.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+  <uses-permission android:name="com.raz.droid.banking.permission.C2D_MESSAGE" />
   
   <application android:label="RazBankingDroid">
     <service android:name="com.microsoft.azure.engagement.service.EngagementService" android:exported="false" android:label="RazBankingDroid Service" android:process=":Engagement" />
@@ -59,7 +59,7 @@
       <intent-filter>
         <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
         <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-        <category android:name="RazBankingDroid.RazBankingDroid" />
+        <category android:name="com.raz.droid.banking" />
       </intent-filter>
     </receiver>
   </application>

@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView2" />
     <TextView
-        android:text=""
+        android:text="Please start recording with one of the above phrases"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView3" />
     <TextView
-        android:text=""
+        android:text="3"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -111,6 +111,9 @@ namespace RazBankingDroid
         {
             var api = new SpeakerRecognitionApiWrapper(Constants.SPEAKER_RECOGNITION_ACCOUNT_KEY);
             api.ResetVerificationEnrollments(_profileId);
+
+            txtVerificationPhrase.Text = "Please start recording with one of the above phrases";
+            txtRemainingEnrollments.Text = "3";
         }
 
         private void btnEnrollmentToMain_Click(object sender, EventArgs e)
@@ -166,6 +169,8 @@ namespace RazBankingDroid
             {
                 var profile = _api.GetVerificationProfile(_profileId);
                 validProfile = _profileId == profile.verificationProfileId;
+
+                txtRemainingEnrollments.Text = profile.remainingEnrollmentsCount.ToString();
             }
             catch
             {
