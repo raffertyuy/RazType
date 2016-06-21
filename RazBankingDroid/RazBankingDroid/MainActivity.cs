@@ -27,9 +27,10 @@ namespace RazBankingDroid
 
             SetContentView(Resource.Layout.Main);
 
-            var engagementConfiguration = new EngagementConfiguration();
-            engagementConfiguration.ConnectionString = "Endpoint=raztype.device.mobileengagement.windows.net;SdkKey=8656580d27d44598a6257a427f46ba28;AppId=cur000049";
-            EngagementAgent.Init(engagementConfiguration);
+            // Uncomment the following lines to enable AzME, also update the AndroidManifest.xml
+            //var engagementConfiguration = new EngagementConfiguration();
+            //engagementConfiguration.ConnectionString = "YOUR CONNECTION STRING HERE";
+            //EngagementAgent.Init(engagementConfiguration);
 
             SetControlHandlers();
         }

@@ -49,7 +49,9 @@
       </intent-filter>
     </receiver>
     <meta-data android:name="engagement:reach:notification:icon" android:value="engagement_close" />
-    <meta-data android:name="engagement:gcm:sender" android:value="1024870389472\n" />
+    
+    <meta-data android:name="engagement:gcm:sender" android:value="YOUR PROJECT NUMBER HERE\n" />
+    
     <receiver android:name="com.microsoft.azure.engagement.gcm.EngagementGCMEnabler" android:exported="false">
       <intent-filter>
         <action android:name="com.microsoft.azure.engagement.intent.action.APPID_GOT" />

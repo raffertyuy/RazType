@@ -4,6 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
+        android:text="My Mobile Bank"
+        android:textColor="#00a1f1"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1" />
+    <TextView
         android:text="Enrollment Phrases"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"

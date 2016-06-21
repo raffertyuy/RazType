@@ -3,11 +3,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ImageView
-        android:src="@drawable/tmbtouch"
+    <TextView
+        android:text="My Mobile Bank"
+        android:textColor="#00a1f1"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="209.0dp"
-        android:id="@+id/imageView1" />
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1" />
     <TextView
         android:text="Status"
         android:textAppearance="?android:attr/textAppearanceMedium"
