@@ -2,74 +2,93 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:text="My Mobile Bank"
-        android:textColor="#00a1f1"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="center"
-        android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+    <ImageView
+        android:id="@+id/imgEnrollmentLogo"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView1" />
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo_common" />
     <TextView
         android:text="Enrollment Phrases"
+        android:textColor="#000000"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView1" />
     <TextView
         android:text=""
+        android:textColor="#000000"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtVerificationPhrases" />
     <TextView
         android:text="Verification Phrase"
+        android:textColor="#000000"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView2" />
     <TextView
         android:text="Please start recording with one of the above phrases"
+        android:textColor="#000000"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtVerificationPhrase" />
     <TextView
         android:text="Remaining Enrollments"
+        android:textColor="#000000"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView3" />
     <TextView
         android:text="3"
+        android:textColor="#000000"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtRemainingEnrollments" />
-    <Button
-        android:id="@+id/btnStartRecording"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Start Recording" />
-    <Button
-        android:id="@+id/btnStopRecording"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Stop Recording" />
     <ListView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:id="@+id/listView1" />
+        android:id="@+id/listView1"
+        android:background="#4D99CD" />
+    <Button
+        android:id="@+id/btnStartStopRecording"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FFFFFF"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:text="Start Recording"
+        android:background="@drawable/button_active_bg" />
     <Button
         android:text="Reset Profile"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FFFFFF"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnResetProfile" />
+        android:layout_height="50dp"
+        android:id="@+id/btnResetProfile"
+        android:background="@drawable/button_disabled_bg" />
+    <Button
+        android:text="Proceed to Login"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/btnEnrollmentToLogin"
+        android:background="@drawable/button_active_bg" />
     <Button
         android:text="Back to Main"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FFFFFF"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnEnrollmentToMain" />
+        android:layout_height="50dp"
+        android:id="@+id/btnEnrollmentToMain"
+        android:background="@drawable/button_active_bg" />
 </LinearLayout>

@@ -2,74 +2,85 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:text="My Mobile Bank"
-        android:textColor="#00a1f1"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="center"
-        android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+    <ImageView
+        android:id="@+id/imgLoginLogo"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView1" />
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo_common" />
     <TextView
         android:text="Status"
+        android:textColor="#000000"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView1" />
     <TextView
         android:text=""
+        android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:enabled="false"
         android:id="@+id/txtStatus" />
     <TextView
         android:text="Confidence Level"
+        android:textColor="#000000"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView3" />
     <TextView
         android:text=""
+        android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:enabled="false"
         android:id="@+id/txtConfidenceLevel" />
     <TextView
         android:text="Your Verification Phrase"
+        android:textColor="#000000"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView5" />
     <TextView
         android:text=""
+        android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:enabled="false"
         android:id="@+id/txtLoginVerificationPhrase" />
-    <Button
-        android:text="Start Recording"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnLoginStartRecording" />
-    <Button
-        android:text="Stop Recording"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnLoginStopRecording" />
     <ListView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:id="@+id/listView1" />
+        android:id="@+id/listView1"
+        android:background="#4D99CD" />
+    <Button
+        android:text="Start Recording"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/btnLoginStartStopRecording"
+        android:background="@drawable/button_active_bg" />
     <Button
         android:text="Login"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FFFFFF"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnLogin" />
+        android:layout_height="50dp"
+        android:id="@+id/btnLogin"
+        android:background="@drawable/button_disabled_bg" />
     <Button
         android:text="Back to Main"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FFFFFF"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnLoginToMain" />
+        android:layout_height="50dp"
+        android:id="@+id/btnLoginToMain"
+        android:background="@drawable/button_active_bg" />
 </LinearLayout>

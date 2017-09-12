@@ -18,8 +18,8 @@ namespace RazBankingDroid
     [Activity(Label = "Mobile Banking POC", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : EngagementActivity
     {
-        private Button btnLogin;
-        private Button btnEnroll;
+        private ImageView btnLogin;
+        private ImageView btnEnroll;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -37,8 +37,8 @@ namespace RazBankingDroid
 
         private void SetControlHandlers()
         {
-            btnLogin = FindViewById<Button> (Resource.Id.btnLogin);
-            btnEnroll = FindViewById<Button>(Resource.Id.btnEnroll);
+            btnLogin = FindViewById<ImageView> (Resource.Id.imgLogin);
+            btnEnroll = FindViewById<ImageView>(Resource.Id.imgSetup);
 
             btnLogin.Click += btnLogin_Click;
             btnEnroll.Click += btnEnroll_Click;

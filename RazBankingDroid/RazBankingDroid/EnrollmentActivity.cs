@@ -30,9 +30,9 @@ namespace RazBankingDroid
         private TextView txtVerificationPhrases;
         private TextView txtVerificationPhrase;
         private TextView txtRemainingEnrollments;
-        private Button btnStartRecording;
-        private Button btnStopRecording;
+        private Button btnStartStopRecording;
         private Button btnResetProfile;
+        private Button btnEnrollmentToLogin;
         private Button btnEnrollmentToMain;
 
         protected override void OnCreate(Bundle bundle)
@@ -43,14 +43,13 @@ namespace RazBankingDroid
 
             SetControlHandlers();
 
-            _recorder = new LowLevelRecorder();
-            _isRecording = false;
-            _haveRecording = false;
-            HandleButtonState();
-
             _api = new SpeakerRecognitionApiWrapper(Constants.SPEAKER_RECOGNITION_ACCOUNT_KEY);
             ShowAvailableEnrollmentPhrases();
             GetOrCreateProfileId();
+
+            _recorder = new LowLevelRecorder();
+            _isRecording = false;
+            HandleButtonState();
         }
 
         private void SetControlHandlers()
@@ -58,52 +57,54 @@ namespace RazBankingDroid
             txtVerificationPhrases = FindViewById<TextView>(Resource.Id.txtVerificationPhrases);
             txtVerificationPhrase = FindViewById<TextView>(Resource.Id.txtVerificationPhrase);
             txtRemainingEnrollments = FindViewById<TextView>(Resource.Id.txtRemainingEnrollments);
-            btnStartRecording = FindViewById<Button>(Resource.Id.btnStartRecording);
-            btnStopRecording = FindViewById<Button>(Resource.Id.btnStopRecording);
+            btnStartStopRecording = FindViewById<Button>(Resource.Id.btnStartStopRecording);
             btnResetProfile = FindViewById<Button>(Resource.Id.btnResetProfile);
+            btnEnrollmentToLogin = FindViewById<Button>(Resource.Id.btnEnrollmentToLogin);
             btnEnrollmentToMain = FindViewById<Button>(Resource.Id.btnEnrollmentToMain);
 
-            btnStartRecording.Click += btnStartRecording_Click;
-            btnStopRecording.Click += btnStopRecording_Click;
+            btnStartStopRecording.Click += btnStartStopRecording_Click;
             btnResetProfile.Click += btnResetProfile_Click;
+            btnEnrollmentToLogin.Click += btnEnrollmentToLogin_Click;
             btnEnrollmentToMain.Click += btnEnrollmentToMain_Click;
         }
 
-        private async void btnStartRecording_Click(object sender, EventArgs e)
+        private async void btnStartStopRecording_Click(object sender, EventArgs e)
         {
-            try
+            if (!_isRecording) // Start Recording
             {
-                StartOperationAsync(_recorder);
-                _isRecording = true;
-                _haveRecording = true;
-                HandleButtonState();
+                try
+                {
+                    StartOperationAsync(_recorder);
+                    _isRecording = true;
+                    _haveRecording = true;
+                    HandleButtonState();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Message: " + ex.Message);
+                    System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                System.Diagnostics.Debug.WriteLine("Message: " + ex.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
-            }
-        }
+                try
+                {
+                    StopOperation(_recorder);
+                    _isRecording = false;
+                    _recorder.RecordingStateChanged += (recording) => {
+                        _recorder.RecordingStateChanged = null;
 
-        private void btnStopRecording_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                StopOperation(_recorder);
-                _isRecording = false;
-                _recorder.RecordingStateChanged += (recording) => {
-                    if (!_isRecording)
-                        HandleButtonState();
+                        EnrollRecording();
 
-                    _recorder.RecordingStateChanged = null;
-
-                    EnrollRecording();
-                };
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine("Message: " + ex.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
+                        if (!_isRecording)
+                            HandleButtonState();
+                    };
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Message: " + ex.Message);
+                    System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
+                }
             }
         }
 
@@ -114,6 +115,14 @@ namespace RazBankingDroid
 
             txtVerificationPhrase.Text = "Please start recording with one of the above phrases";
             txtRemainingEnrollments.Text = "3";
+
+            HandleButtonState();
+        }
+
+        private void btnEnrollmentToLogin_Click(object sender, EventArgs e)
+        {
+            var intent = new Intent(this, typeof(LoginActivity));
+            StartActivity(intent);
         }
 
         private void btnEnrollmentToMain_Click(object sender, EventArgs e)
@@ -124,9 +133,47 @@ namespace RazBankingDroid
 
         private void HandleButtonState()
         {
-            btnStartRecording.Enabled = !_isRecording;
-            btnStopRecording.Enabled = _isRecording;
-            btnResetProfile.Enabled = !_isRecording;
+            if (_isRecording)
+            {
+                btnStartStopRecording.Text = "Stop Recording";
+                btnStartStopRecording.SetBackgroundResource(Resource.Drawable.button_record_bg);
+
+                btnResetProfile.SetBackgroundResource(Resource.Drawable.button_disabled_bg);
+                btnResetProfile.Enabled = false;
+
+                btnEnrollmentToLogin.SetBackgroundResource(Resource.Drawable.button_disabled_bg);
+                btnResetProfile.Enabled = false;
+            }
+            else
+            {
+                btnStartStopRecording.Text = "Start Recording";
+                btnStartStopRecording.SetBackgroundResource(Resource.Drawable.button_active_bg);
+
+                if (_haveRecording)
+                {
+                    btnResetProfile.SetBackgroundResource(Resource.Drawable.button_active_bg);
+                    btnResetProfile.Enabled = true;
+
+                    if (txtRemainingEnrollments.Text == "0")
+                    {
+                        btnEnrollmentToLogin.SetBackgroundResource(Resource.Drawable.button_active_bg);
+                        btnResetProfile.Enabled = true;
+                    }
+                    else
+                    {
+                        btnEnrollmentToLogin.SetBackgroundResource(Resource.Drawable.button_disabled_bg);
+                        btnResetProfile.Enabled = false;
+                    }
+                }
+                else
+                {
+                    btnResetProfile.SetBackgroundResource(Resource.Drawable.button_disabled_bg);
+                    btnResetProfile.Enabled = false;
+
+                    btnEnrollmentToLogin.SetBackgroundResource(Resource.Drawable.button_disabled_bg);
+                    btnResetProfile.Enabled = false;
+                }
+            }
         }
 
         async Task StartOperationAsync(INotificationReceiver nRec)
@@ -163,6 +210,8 @@ namespace RazBankingDroid
         private void GetOrCreateProfileId()
         {
             _profileId = UserSettingsHelper.RetrieveProfileId();
+            _haveRecording = false;
+
             bool validProfile = false;
 
             try
@@ -171,6 +220,7 @@ namespace RazBankingDroid
                 validProfile = _profileId == profile.verificationProfileId;
 
                 txtRemainingEnrollments.Text = profile.remainingEnrollmentsCount.ToString();
+                _haveRecording = profile.remainingEnrollmentsCount != 3;
             }
             catch
             {

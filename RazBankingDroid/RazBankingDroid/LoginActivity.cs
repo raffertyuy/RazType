@@ -23,12 +23,10 @@ namespace RazBankingDroid
         private string _profileId;
         private bool _isRecording;
 
-        private bool _haveRecording;
         private TextView txtStatus;
         private TextView txtConfidenceLevel;
         private TextView txtLoginVerificationPhrase;
-        private Button btnLoginStartRecording;
-        private Button btnLoginStopRecording;
+        private Button btnLoginStartStopRecording;
         private Button btnLogin;
         private Button btnLoginToMain;
 
@@ -39,15 +37,16 @@ namespace RazBankingDroid
             SetContentView(Resource.Layout.Login);
             SetControlHandlers();
 
-            _recorder = new LowLevelRecorder();
-            _isRecording = false;
-            _haveRecording = false;
-
-            btnLogin.Enabled = false;
-            HandleRecordingButtonState();
-
             _api = new SpeakerRecognitionApiWrapper(Constants.SPEAKER_RECOGNITION_ACCOUNT_KEY);
             GetProfileId();
+
+            _recorder = new LowLevelRecorder();
+            _isRecording = false;
+
+            HandleRecordingButtonState();
+
+            btnLogin.SetBackgroundResource(Resource.Drawable.button_disabled_bg);
+            btnLogin.Enabled = false;
         }
 
         private void SetControlHandlers()
@@ -55,52 +54,60 @@ namespace RazBankingDroid
             txtStatus = FindViewById<TextView>(Resource.Id.txtStatus);
             txtConfidenceLevel = FindViewById<TextView>(Resource.Id.txtConfidenceLevel);
             txtLoginVerificationPhrase = FindViewById<TextView>(Resource.Id.txtLoginVerificationPhrase);
-            btnLoginStartRecording = FindViewById<Button>(Resource.Id.btnLoginStartRecording);
-            btnLoginStopRecording = FindViewById<Button>(Resource.Id.btnLoginStopRecording);
+            btnLoginStartStopRecording = FindViewById<Button>(Resource.Id.btnLoginStartStopRecording);
             btnLogin = FindViewById<Button>(Resource.Id.btnLogin);
             btnLoginToMain = FindViewById<Button>(Resource.Id.btnLoginToMain);
 
-            btnLoginStartRecording.Click += btnLoginStartRecording_Click;
-            btnLoginStopRecording.Click += btnLoginStopRecording_Click;
+            btnLoginStartStopRecording.Click += btnLoginStartStopRecording_Click;
             btnLogin.Click += btnLogin_Click;
             btnLoginToMain.Click += btnLoginToMain_Click;
         }
 
-        private async void btnLoginStartRecording_Click(object sender, EventArgs e)
+        private async void btnLoginStartStopRecording_Click(object sender, EventArgs e)
         {
-            try
+            if (!_isRecording) // Start Recording
             {
-                StartOperationAsync(_recorder);
-                _isRecording = true;
-                _haveRecording = true;
-                HandleRecordingButtonState();
+                try
+                {
+                    StartOperationAsync(_recorder);
+                    _isRecording = true;
+                    HandleRecordingButtonState();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Message: " + ex.Message);
+                    System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                System.Diagnostics.Debug.WriteLine("Message: " + ex.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
-            }
-        }
+                try
+                {
+                    StopOperation(_recorder);
+                    _isRecording = false;
+                    _recorder.RecordingStateChanged += (recording) => {
+                        _recorder.RecordingStateChanged = null;
 
-        private void btnLoginStopRecording_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                StopOperation(_recorder);
-                _isRecording = false;
-                _recorder.RecordingStateChanged += (recording) => {
-                    if (!_isRecording)
-                        HandleRecordingButtonState();
+                        if (VerifyRecording())
+                        {
+                            btnLogin.SetBackgroundResource(Resource.Drawable.button_active_bg);
+                            btnLogin.Enabled = true;
+                        }
+                        else
+                        {
+                            btnLogin.SetBackgroundResource(Resource.Drawable.button_disabled_bg);
+                            btnLogin.Enabled = false;
+                        }
 
-                    _recorder.RecordingStateChanged = null;
-
-                    btnLogin.Enabled = VerifyRecording();
-                };
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine("Message: " + ex.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
+                        if (!_isRecording)
+                            HandleRecordingButtonState();
+                    };
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Message: " + ex.Message);
+                    System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
+                }
             }
         }
 
@@ -118,13 +125,22 @@ namespace RazBankingDroid
 
         private void HandleRecordingButtonState()
         {
-            btnLoginStartRecording.Enabled = !_isRecording;
-            btnLoginStopRecording.Enabled = _isRecording;
+            if (_isRecording)
+            {
+                btnLoginStartStopRecording.Text = "Stop Recording";
+                btnLoginStartStopRecording.SetBackgroundResource(Resource.Drawable.button_record_bg);
+            }
+            else
+            {
+                btnLoginStartStopRecording.Text = "Start Recording";
+                btnLoginStartStopRecording.SetBackgroundResource(Resource.Drawable.button_active_bg);
+            }
         }
 
         private void GetProfileId()
         {
             _profileId = UserSettingsHelper.RetrieveProfileId();
+
             bool validProfile = false;
 
             try
@@ -142,8 +158,6 @@ namespace RazBankingDroid
                 return;
 
             txtStatus.Text = "Profile Id not found. Please Set-up your Voice Verification.";
-            btnLoginStartRecording.Enabled = false;
-            btnLoginStopRecording.Enabled = false;
         }
 
         async Task StartOperationAsync(INotificationReceiver nRec)
