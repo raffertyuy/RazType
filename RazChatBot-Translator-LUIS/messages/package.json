@@ -1,0 +1,28 @@
+{
+    "name": "razpalabaschat",
+    "version": "1.0.0",
+    "main": "index.js",
+    "dependencies": {
+        "botbuilder": "^3.7.0",
+        "botbuilder-azure": "3.0.2",
+        "request": "^2.81.0",
+        "urlencode": "^1.1.0",
+        "xml2js": "^0.4.19"
+    },
+    "devDependencies": {
+        "restify": "^4.3.0"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Rafferty Uy",
+    "license": "ISC",
+    "description": "Taglish Media Search Bot",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/rafferty/RazType.git"
+    },
+    "keywords": [
+        "Azure"
+    ]
+}

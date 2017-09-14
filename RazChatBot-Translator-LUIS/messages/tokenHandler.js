@@ -1,0 +1,53 @@
+//=============================
+// Cognitive API Token Setup 
+//=============================
+
+var request = require('request');
+
+var useEmulator = process.env.BotEnv == null ? true : (process.env.BotEnv == 'local');
+console.log('tokenHandler.js useEmulator: ' + useEmulator);
+
+var token = "";
+var tokeninterval;
+var TRANSLATIONKEY = useEmulator ? <YOUR_AZURE_COGNITIVE_BING_TRANSLATOR_API_KEY_HERE> : process.env.TranslationAPIKey;
+
+// Put this in a separate web job if deploying to production, otherwise fine for development
+// Why I used setTimeout and not setInterval: http://www.thecodeship.com/web-development/alternative-to-javascript-evil-setinterval/
+function getToken() {
+
+    var options = {
+        method: 'POST',
+        url: 'https://api.cognitive.microsoft.com/sts/v1.0/issueToken?subscription-key=' + TRANSLATIONKEY
+    };
+
+    request(options, function(error, response, body) {
+        //Check for error
+        if (error) {
+            return console.log('Error:', error);
+        } else if (response.statusCode !== 200) {
+            return console.log('Invalid Status Code Returned:', response.statusCode);
+        } else {
+            //Token gets returned as string in the body
+            token = body;
+        }
+    });
+
+    interval = setTimeout(getToken, 540000); // runs once every 9 minutes, token lasts for 10
+}
+
+// Stop the token generation
+function stopInterval() {
+    clearTimeout(tokeninterval);
+}
+
+module.exports = {
+    init: function() {
+        getToken();
+    },
+    stop: function() {
+        stopInterval();
+    },
+    token: function() {
+        return token;
+    }
+};
