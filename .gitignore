@@ -18,3 +18,8 @@
 /RazSpeakerAuthentication/.vs
 *.suo
 *.user
+
+# Node JS
+node_modules
+azure.err
+*.publishsettings
