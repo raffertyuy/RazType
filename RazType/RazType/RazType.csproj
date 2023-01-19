@@ -4,6 +4,12 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationInsightsResourceId>/subscriptions/7308e0b7-489d-4f8b-80b7-832b0662d47d/resourceGroups/raztype-webapp-rg/providers/microsoft.insights/components/raztype-appinsights</ApplicationInsightsResourceId>
+    <UserSecretsId>563a6815-fecf-43d8-a822-3eb16056e66b</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.15.0" />
+  </ItemGroup>
 
 </Project>
