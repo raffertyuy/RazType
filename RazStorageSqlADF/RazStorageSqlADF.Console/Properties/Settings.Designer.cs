@@ -37,7 +37,7 @@ namespace RAZ.ADF.RazStorageSqlADF.Console.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("DefaultEndpointsProtocol=https;AccountName=razstorageadfpoc;AccountKey=9jgk0bt32b" +
-            "HjCy5xdntIXBIqaBv7bLkZkbh2L/k76nb0Uaebg75/b7EBR8KnB2Q3PHM64hGs2yY8dnD+EaZx3A==")]
+            "<storage key>")]
         public string AdfStorageConnectionString {
             get {
                 return ((string)(this["AdfStorageConnectionString"]));

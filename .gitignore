@@ -1,25 +1,12 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
 
-# NuGet Packages
-*.nupkg
-# The packages folder can be ignored because of Package Restore
-**/packages/*
-# except build/, which is used as an MSBuild target.
-!**/packages/build/
-# Uncomment if necessary however generally it will be regenerated when needed
-#!**/packages/repositories.config
+# Local History for Visual Studio Code
+.history/
 
-**/bin/*
-**/obj/*
-**/Debug/*
-**/Release/*
-/RazSpeakerAuthentication/.vs
-*.suo
-*.user
-
-# Node JS
-node_modules
-azure.err
-*.publishsettings
+# Built Visual Studio Code Extensions
+*.vsix
