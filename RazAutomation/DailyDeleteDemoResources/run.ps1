@@ -1,6 +1,9 @@
 # Input bindings are passed in via param block.
 param($Timer)
 
+# Import Az Module
+Import-Module Az.Resources
+
 # Delete resources with naming conventions like 'prefix-demo-deleteme'
 $resources = Get-AzResourceGroup | Where-Object ResourceGroupName -like '*-deleteme'
 
