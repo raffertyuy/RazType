@@ -105,10 +105,6 @@ if defined ACCESS_TOKEN (
         echo Your bearer token is:
         echo !ACCESS_TOKEN!
         
-        echo.
-        echo Getting your user information...
-        powershell -Command "try { $token = $env:ACCESS_TOKEN; $tokenPayload = $token.Split('.')[1]; while ($tokenPayload.Length %% 4) { $tokenPayload += '=' }; $tokenJson = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($tokenPayload)) | ConvertFrom-Json; Write-Output 'Your User Object ID (GUID) is:'; Write-Output $tokenJson.oid } catch { Write-Output 'Could not extract Object ID from token'; }"
-        
         del token_response.json
         goto end
     )
